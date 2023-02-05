@@ -11,7 +11,7 @@ type Error struct {
 	details []string `json:"details"`
 }
 
-var codes = map[int]string
+var codes = map[int]string{}
 
 func NewError(code int, msg string) *Error {
 	if _, ok := codes[code]; ok {
@@ -22,7 +22,7 @@ func NewError(code int, msg string) *Error {
 }
 
 func (e *Error) Error() string {
-	return fmt.Sprintf("错误码：%d, 错误信息：%s",e.Code(),e.Msg())
+	return fmt.Sprintf("错误码：%d, 错误信息：%s", e.Code(), e.Msg())
 }
 
 func (e *Error) Code() int {
