@@ -1,22 +1,48 @@
+# 配置文件内容如下，包括了服务端、应用程序和数据库的相关信息
+
+# Server配置，包括 gin 运行模式、默认的 HTTP 监听端口、请求读取超时时间和响应写入超时时间
 Server:
+  # 运行模式，设置为debug模式
   RunMode: debug
+  # 服务端口，设置为8000
   HttpPort: 8000
+  # 请求读取超时时间，设置为60秒
   ReadTimeout: 60
+  # 响应写入超时时间，设置为60秒
   WriteTimeout: 60
+
+# App配置，包括默认分页大小、最大分页大小、日志保存路径、日志文件名和日志文件后缀
 App:
-  DefaultPageSize: 10
+  # 默认分页大小为103条数据
+  DefaultPageSize: 103
+  # 最大分页大小，设置为100条数据
   MaxPageSize: 100
+  # 日志保存路径，设置为storage/logs目录下
   LogSavePath: storage/logs
+  # 日志文件名，设置为app
   LogFileName: app
+  # 日志文件后缀，设置为.log
   LogFileExt: .log
+
+# Database配置，主要是连接实例所必需的基础参数。
 Database:
+  # 数据库类型，设置为mysql
   DBType: mysql
-  Username: root  # 填写你的数据库账号
-  Password: 12345678  # 填写你的数据库密码
+  # 数据库用户名，设置为root
+  Username: root
+  # 数据库密码，设置为12345678
+  Password: 12345678
+  # 数据库地址及端口，设置为127.0.0.1:3306
   Host: 127.0.0.1:3306
+  # 数据库名称，设置为blog_service
   DBName: blog_service
+  # 数据库表前缀，设置为blog_
   TablePrefix: blog_
+  # 数据库字符编码，设置为utf8
   Charset: utf8
+  # 是否开启时间解析，设置为True
   ParseTime: True
+  # 最大空闲连接数，设置为10
   MaxIdleConns: 10
+  # 最大打开连接数，设置为30
   MaxOpenConns: 30
