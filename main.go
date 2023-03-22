@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-programming-tour-book/blog-service/global"
+	"github.com/go-programming-tour-book/blog-service/internal/model"
 	"github.com/go-programming-tour-book/blog-service/internal/routers"
 	"github.com/go-programming-tour-book/blog-service/pkg/setting"
 	"log"
@@ -19,16 +20,25 @@ func init() {
 
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
-
 	router := routers.NewRouter()
 	s := &http.Server{
-		Addr:           ":8080",
+		Addr:           ":" + global.ServerSetting.HttpPort,
 		Handler:        router,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    global.ServerSetting.ReadTimeout,
+		WriteTimeout:   global.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
 	s.ListenAndServe()
+}
+
+func setupDBEngine() error {
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func setupSetting() error {
